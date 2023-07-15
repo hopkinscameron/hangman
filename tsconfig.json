@@ -22,12 +22,20 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "allowJs": true,
+    "checkJs": false
   },
+  "exclude": [
+    "dist",
+  ],
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
 }

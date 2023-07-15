@@ -1,0 +1,34 @@
+{
+  "extends": "stylelint-config-sass-guidelines",
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-stylistic"
+  ],
+  "rules": {
+    "max-nesting-depth": 4,
+    "stylistic/indentation": 2,
+    "stylistic/number-leading-zero": "always",
+    "stylistic/no-eol-whitespace": true,
+    "stylistic/function-parenthasis-space-inside": "never-single-line",
+    "stylistic/no-missing-end-of-source-newline": null,
+    "scss/at-import-partial-extension-blacklist": null,
+    "scss/at-mixin-pattern": "^[^A-Z].*$",
+    "scss/dollar-variable-pattern": "^[^A-Z].*$",
+    "scss/percent-placeholder-pattern": "^([a-z]+)([-]{1,2}[a-z]+)*$",
+    "selector-max-id": 1,
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": [
+          "attribute",
+          "class",
+          "id"
+        ]
+      }
+    ],
+    "selector-max-compound-selectors": 20,
+    "property-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null,
+    "color-named": "always-where-possible"
+  }
+}
