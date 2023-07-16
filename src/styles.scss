@@ -5,6 +5,7 @@
 // custom styles
 @use '/src/assets/theme.scss';
 @use '/src/assets/variables.scss';
+@use '/src/assets/material-overrides.scss';
 
 * {
   scrollbar-width: thin;

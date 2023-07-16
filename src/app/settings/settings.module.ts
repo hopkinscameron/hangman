@@ -4,16 +4,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from 'src/shared/material/material.module';
-import { GameComponent } from './game.component';
-import { GameOverComponent } from './game-over/game-over.component';
-import { GameRoutingModule } from './game.routing';
-import { PauseMenuComponent } from './pause-menu/pause-menu.component';
+import { SettingsComponent } from './settings.component';
+import { SettingsRoutingModule } from './settings.routing';
 
 @NgModule({
   declarations: [
-    GameComponent,
-    GameOverComponent,
-    PauseMenuComponent,
+    SettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -21,7 +17,7 @@ import { PauseMenuComponent } from './pause-menu/pause-menu.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    GameRoutingModule,
+    SettingsRoutingModule,
   ],
 })
-export class GameModule { }
+export class SettingsModule { }
