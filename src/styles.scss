@@ -1,4 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use 'sass:color';
+@use 'sass:map';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// custom styles
+@use '/src/assets/theme.scss';
+@use '/src/assets/variables.scss';
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--divider-color);
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--divider-color);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--divider-color);
+  border-radius: 4px;
+  border: 0;
+}

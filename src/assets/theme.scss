@@ -1,0 +1,52 @@
+@use '@angular/material' as mat;
+@use 'sass:color';
+@use 'sass:map';
+
+// custom styles
+@use '/src/assets/variables.scss';
+
+@mixin theme($theme) {
+  $primary: map.get($theme, primary);
+  $accent: map.get($theme, accent);
+  $warn: map.get($theme, warn);
+  $background: map.get($theme, background);
+  $foreground: map.get($theme, foreground);
+  $typography: map.get($theme, typography);
+  --primary-color: #{mat.get-color-from-palette($primary)};
+  --primary-color-contrast: #{mat.get-color-from-palette($primary, 'default-contrast')};
+  --accent-color: #{mat.get-color-from-palette($accent)};
+  --accent-color-contrast: #{mat.get-color-from-palette($accent, 'default-contrast')};
+  --warn-color: #{mat.get-color-from-palette($warn)};
+  --warn-color-contrast: #{mat.get-color-from-palette($warn, 'default-contrast')};
+  --background-color: #{mat.get-color-from-palette($background)};
+  --foreground-color: #{mat.get-color-from-palette($foreground, 'text')};
+  --hover-color: #{mat.get-color-from-palette($background, hover)};
+  --focused-color: #{mat.get-color-from-palette($background, focused-button)};
+  --divider-color: #{mat.get-color-from-palette($foreground, divider)};
+  --overlay-color: rgba(0, 0, 0, 0.25);
+}
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+@include mat.all-component-typographies();
+
+// Define a light theme
+$light-theme: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette(mat.$deep-purple-palette),
+    accent: mat.define-palette(mat.$amber-palette),
+  ),
+  typography: mat.define-typography-config(),
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($light-theme);
+
+:root {
+  @include theme($light-theme);
+  --mdc-typography-button-text-transform: uppercase;
+}
