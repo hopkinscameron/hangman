@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import dictionary from 'src/assets/dictionary.json';
+import { Difficulty, SettingsService } from '../settings/settings.service';
 
 interface KeyboardLetter {
   letter: string;
@@ -28,6 +29,8 @@ export class GameComponent implements OnInit {
   private readonly allowedLetters = 'qwertyuiopasdfghjklzxcvbnm';
   private disabledLetters: string;
   private guessingStateIndex: number;
+
+  constructor(private settingsService: SettingsService) { }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -72,7 +75,21 @@ export class GameComponent implements OnInit {
     this.disabledLetters = '';
     this.guessingStateIndex = 0;
     this.imageGuessStateUrl = this.initialGuessStateUrl;
-    const word = dictionary.easy[Math.floor(Math.random() * dictionary.easy.length)];
+
+    let dictionaryLevel: string[];
+    switch(this.settingsService.getDifficulty()) {
+      case Difficulty.EASY:
+        dictionaryLevel = dictionary.easy;
+        break;
+      case Difficulty.MEDIUM:
+        dictionaryLevel = dictionary.medium;
+        break;
+      case Difficulty.HARD:
+        dictionaryLevel = dictionary.hard;
+        break;
+    }
+
+    const word = dictionaryLevel[Math.floor(Math.random() * dictionaryLevel.length)];
     console.log(word);
     // TODO: wonder if it's better to make this a 2D array instead of spaces
     this.wordToGuess = word.split('').map((letter) => {

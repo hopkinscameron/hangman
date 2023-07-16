@@ -1,0 +1,14 @@
+<div class="settings">
+  <button class="close" mat-icon-button extra-large (click)="closeMenu()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <p class="title">Settings</p>
+
+  <h1 class="header">Difficulty Level</h1>
+  <mat-button-toggle-group name="difficulty" aria-label="Difficulty" [formControl]="settingsForm.controls.difficultyCtrl">
+    <mat-button-toggle [value]="difficultyLevel.EASY">Easy</mat-button-toggle>
+    <mat-button-toggle [value]="difficultyLevel.MEDIUM">Medium</mat-button-toggle>
+    <mat-button-toggle [value]="difficultyLevel.HARD">Hard</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
