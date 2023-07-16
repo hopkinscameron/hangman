@@ -30,7 +30,8 @@
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
     "allowJs": true,
-    "checkJs": false
+    "checkJs": false,
+    "resolveJsonModule": true
   },
   "exclude": [
     "dist",

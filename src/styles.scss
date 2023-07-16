@@ -10,7 +10,6 @@
   scrollbar-width: thin;
   scrollbar-color: var(--divider-color);
   background-color: var(--background-color);
-  color: var(--foreground-color);
 }
 
 ::-webkit-scrollbar {
@@ -26,4 +25,55 @@
   background-color: var(--divider-color);
   border-radius: 4px;
   border: 0;
+}
+
+body {
+  margin: 0;
+}
+
+.mat-icon {
+  &[small] {
+    font-size: map.get(variables.$icon-size-map, small);
+    width: map.get(variables.$icon-size-map, small);
+    height: map.get(variables.$icon-size-map, small);
+  }
+
+  &[large] {
+    font-size: map.get(variables.$icon-size-map, large);
+    width: map.get(variables.$icon-size-map, large);
+    height: map.get(variables.$icon-size-map, large);
+  }
+
+  &[extra-large] {
+    font-size: map.get(variables.$icon-size-map, extraLarge);
+    width: map.get(variables.$icon-size-map, extraLarge);
+    height: map.get(variables.$icon-size-map, extraLarge);
+  }
+}
+
+[mat-icon-button] {
+  &[extra-large] {
+    width: map.get(variables.$icon-size-map, extraLarge);
+    height: map.get(variables.$icon-size-map, extraLarge);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    & > *[role=img] {
+      width: map.get(variables.$icon-size-map, extraLarge);
+      height: map.get(variables.$icon-size-map, extraLarge);
+      font-size: map.get(variables.$icon-size-map, extraLarge);
+
+      svg {
+        width: map.get(variables.$icon-size-map, extraLarge);
+        height: map.get(variables.$icon-size-map, extraLarge);
+      }
+    }
+
+    .mat-mdc-button-touch-target {
+      width: map.get(variables.$icon-size-map, extraLarge);
+      height: map.get(variables.$icon-size-map, extraLarge);
+    }
+  }
 }

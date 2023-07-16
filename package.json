@@ -37,6 +37,7 @@
     "@typescript-eslint/eslint-plugin": "~5.62.0",
     "@typescript-eslint/parser": "~5.62.0",
     "eslint": "~8.44.0",
+    "eslint-plugin-import": "~2.27.5",
     "stylelint": "~15.10.1",
     "stylelint-config-sass-guidelines": "~10.0.0",
     "stylelint-scss": "~5.0.1",
