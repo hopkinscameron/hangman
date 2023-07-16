@@ -1,0 +1,39 @@
+@use 'src/assets/variables.scss';
+@use 'sass:map';
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: map.get(variables.$z-index-map, header);
+  width: 100%;
+  height: variables.$header-height;
+
+  .content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    place-content: center flex-start;
+    align-content: center;
+    justify-content: flex-start;
+    padding: 0 10px;
+    width: 100%;
+    height: variables.$header-height;
+    background: var(--primary-color);
+
+    .title {
+      margin-bottom: 0;
+      margin-left: 12px;
+      color: var(--primary-color-contrast);
+    }
+  }
+
+  #logo {
+    transition: left 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    background: url('/assets/images/logo.png') no-repeat;
+    flex: 0 0 60px;
+    height: calc(60px - 15px); // 60px being the header height
+    background-size: 60px calc(60px - 15px);
+  }
+}
