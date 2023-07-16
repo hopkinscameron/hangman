@@ -1,0 +1,13 @@
+<div class="pause">
+  <button class="close" mat-icon-button extra-large (click)="closeMenu()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h1 class="title">Game Paused</h1>
+
+  <div class="actions">
+    <button mat-raised-button color="primary">Settings</button>
+    <button mat-raised-button color="primary">Leaderboards</button>
+    <a mat-raised-button color="primary" [routerLink]="['/']">Quit</a>
+  </div>
+</div>

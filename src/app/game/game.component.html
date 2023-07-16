@@ -1,0 +1,19 @@
+<hangman-pause-menu *ngIf="paused" (close)="closeMenu()"></hangman-pause-menu>
+<hangman-game-over *ngIf="gameOver" [winner]="winner" (playAgainClicked)="playAgain()"></hangman-game-over>
+
+<div class="game-container">
+  <div class="image-letters">
+    <img class="game-image" [src]="imageGuessStateUrl" />
+
+    <div class="letters">
+      <span class="letter" [ngClass]="{ 'space': letter.letter === ' ' }" *ngFor="let letter of wordToGuess">{{letter.masked ? ' ' : letter.letter}}</span>
+    </div>
+  </div>
+
+  <div class="keyboard-container">
+    <div class="keyboard-row" *ngFor="let row of keyboard">
+      <button class="letter" mat-raised-button color="primary" *ngFor="let letter of row"
+        (click)="letterClicked(letter)" [disabled]="isLetterDisabled(letter)">{{letter}}</button>
+    </div>
+  </div>
+</div>

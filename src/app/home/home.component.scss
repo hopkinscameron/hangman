@@ -1,0 +1,28 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  gap: 24px;
+}
+
+.game-image {
+  width: 300px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 20%;
+
+  a {
+    font-size: 2rem;
+    height: 60px;
+  }
+}

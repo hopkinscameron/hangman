@@ -1,5 +1,12 @@
-$header-height: 60px;
 $z-index-map: (
-  header: 100,
   loading: 90,
-)
+  gameOver: 110,
+  pause: 110,
+);
+
+$icon-size-map: (
+  small: 20px,
+  default: 100px,
+  large: 40px,
+  extraLarge: 48px,
+);
