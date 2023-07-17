@@ -1,5 +1,5 @@
 <hangman-pause-menu *ngIf="gameService.isPaused()" (close)="closeMenu()"></hangman-pause-menu>
-<hangman-game-over *ngIf="!gameService.isGameInProgress()" [winner]="gameService.isWinner()" (playAgainClicked)="playAgain()"></hangman-game-over>
+<hangman-game-over *ngIf="!gameService.isGameInProgress()" [gameOver]="gameOver" (playAgainClicked)="playAgain()"></hangman-game-over>
 
 <div class="game-container">
   <div class="time-span" *ngIf="elapsedTime as elapsed">

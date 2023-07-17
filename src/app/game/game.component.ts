@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, On
 
 import dictionary from 'src/assets/dictionary.json';
 import { isLetterDisabled, isValidLetter } from 'src/shared/keyboard/keyboard.component';
-import { Difficulty, SettingsService } from '../../shared/settings/settings.service';
+import { Difficulty, SettingsService } from 'src/shared/settings/settings.service';
+import { clamp } from 'src/shared/utility-functions';
 import { GameService } from './game.service';
+import { GameOver } from './game-over/game-over.component';
 
 interface KeyboardLetter {
   letter: string;
@@ -32,11 +34,13 @@ export class GameComponent implements OnInit, OnDestroy {
     minutes: 0,
     seconds: 0,
   };
+  gameOver: GameOver;
 
   private guessingStateIndex: number;
   private timer: NodeJS.Timer;
+  private difficulty: Difficulty;
 
-  constructor(readonly gameService: GameService, private changeDetector: ChangeDetectorRef,
+  constructor(readonly gameService: GameService, private readonly changeDetector: ChangeDetectorRef,
     private readonly settingsService: SettingsService) {
     this.gameService.setGameInProgress(true);
   }
@@ -75,8 +79,6 @@ export class GameComponent implements OnInit, OnDestroy {
     if (this.elapsedTime.seconds >= 60) {
       this.elapsedTime.minutes += 1;
       this.elapsedTime.seconds = 0;
-
-      console.log(this.elapsedTime);
     }
   }
 
@@ -91,6 +93,10 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   letterClicked(letter: string): void {
+    if (!this.gameService.isGameInProgress() || this.gameService.isPaused()) {
+      return;
+    }
+
     const lowerLetter = letter.toLowerCase();
     if (isValidLetter(lowerLetter) && !isLetterDisabled(this.disabledLetters, lowerLetter)) {
       this.disabledLetters = this.disabledLetters.concat(lowerLetter);
@@ -105,12 +111,18 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   private startGame(): void {
+    this.gameOver = {
+      winner: false,
+      scoreBreakdown: null,
+      previousScore: this.settingsService.getProfile().score,
+    };
     this.disabledLetters = '';
     this.guessingStateIndex = 0;
     this.imageGuessStateUrl = this.initialGuessStateUrl;
 
     let dictionaryLevel: string[];
-    switch(this.settingsService.getDifficulty()) {
+    this.difficulty = this.settingsService.getSettings().difficulty;
+    switch(this.difficulty) {
       case Difficulty.EASY:
         dictionaryLevel = dictionary.easy;
         break;
@@ -129,6 +141,7 @@ export class GameComponent implements OnInit, OnDestroy {
       return { letter: letter.toLowerCase(), masked: letter !== ' ', };
     });
   }
+
   private checkLetterInWord(letter: string): void {
     let letterFound = false;
     this.wordToGuess = this.wordToGuess.map((letterInWordToGuess) => {
@@ -141,7 +154,7 @@ export class GameComponent implements OnInit, OnDestroy {
     });
 
     if (!letterFound) {
-      this.guessingStateIndex += 1;
+      this.guessingStateIndex = clamp(this.guessingStateIndex + 1, 0, 7);
       this.imageGuessStateUrl = this.imageGuessStateUrl.replace(`strike-${this.guessingStateIndex - 1}`, `strike-${this.guessingStateIndex}`);
     }
 
@@ -150,10 +163,23 @@ export class GameComponent implements OnInit, OnDestroy {
 
   private checkGameOver(): void {
     if (this.wordToGuess.every(letter => !letter.masked)) {
-      this.gameService.setWinner(true);
-      this.gameService.setGameInProgress(false);
+      this.handleGameOver(true);
     } else if (this.guessingStateIndex === 7) {
-      this.gameService.setGameInProgress(false);
+      this.handleGameOver(false);
     }
+  }
+
+  private handleGameOver(winner: boolean): void {
+    clearInterval(this.timer);
+    const scoreBreakdown = this.gameService.calculateScore(this.guessingStateIndex, this.difficulty, this.getTimeInSeconds(this.elapsedTime));
+    this.gameOver.winner = winner;
+    this.gameOver.scoreBreakdown = scoreBreakdown;
+    this.settingsService.updateProfile(scoreBreakdown.achievedScore);
+    this.gameService.setWinner(winner);
+    this.gameService.setGameInProgress(false);
+  }
+
+  private getTimeInSeconds(elapsedTime: TimeSpan): number {
+    return elapsedTime.hours * 3600 + elapsedTime.minutes * 60 + elapsedTime.seconds;
   }
 }

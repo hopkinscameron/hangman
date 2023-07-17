@@ -6,10 +6,11 @@ import { lastValueFrom } from 'rxjs';
 
 import { ProceedWithCautionComponent } from 'src/shared/proceed-with-caution/proceed-with-caution.component';
 import { GameService } from 'src/app/game/game.service';
-import { Difficulty, SettingsService } from './settings.service';
+import { Difficulty, Settings, SettingsService } from './settings.service';
 
 interface SettingsControls {
   difficultyCtrl: FormControl<Difficulty>;
+  volumeCtrl: FormControl<number>;
 }
 
 @Component({
@@ -24,15 +25,18 @@ export class SettingsComponent implements OnInit {
   readonly difficultyLevel = Difficulty;
   settingsForm: FormGroup<SettingsControls>;
 
+  private settings: Settings;
+
   constructor(private readonly router: Router, private readonly dialog: MatDialog,
     private readonly settingsService: SettingsService, private readonly gameService: GameService) { }
 
   ngOnInit(): void {
+    this.settings = this.settingsService.getSettings();
     this.createForms();
   }
 
   async closeMenu(): Promise<boolean> {
-    if (this.gameService.isGameInProgress() && this.settingsForm.controls.difficultyCtrl.value !== this.settingsService.getDifficulty()) {
+    if (this.gameService.isGameInProgress() && this.settingsForm.controls.difficultyCtrl.value !== this.settings.difficulty) {
       const dialogRef = this.dialog.open(ProceedWithCautionComponent);
 
       const proceed = await lastValueFrom(dialogRef.afterClosed());
@@ -47,12 +51,14 @@ export class SettingsComponent implements OnInit {
 
   private createForms(): void {
     this.settingsForm = new FormGroup<SettingsControls>({
-      difficultyCtrl: new FormControl<Difficulty>(this.settingsService.getDifficulty()),
+      difficultyCtrl: new FormControl<Difficulty>(this.settings.difficulty),
+      volumeCtrl: new FormControl<number>(this.settings.musicVolume),
     });
   }
 
   private finishClosing(): Promise<boolean> {
     this.settingsService.setDifficulty(this.settingsForm.controls.difficultyCtrl.value);
+    this.settingsService.setMusicVolume(this.settingsForm.controls.volumeCtrl.value);
 
     if (this.shouldNavigateOnClose) {
       return this.router.navigate(['']);
