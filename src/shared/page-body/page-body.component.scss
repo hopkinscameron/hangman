@@ -1,0 +1,21 @@
+:host {
+  display: flex;
+  flex: 1;
+  overflow: auto;
+  --page-body-padding: 16px;
+  --page-body-padding-top: 64px;
+}
+
+.page-body {
+  flex: 1;
+  overflow: hidden auto;
+  padding: var(--page-body-padding);
+  padding-top: var(--page-body-padding-top);
+
+  > .content {
+    max-width: 2000px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+  }
+}

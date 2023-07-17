@@ -64,16 +64,16 @@ export class GameService {
   // medium 3 mins or less 1x, 5 mins or less 2x, 3x
   // hard 5 mins seconds or less 1x, 8 mins or less 2x, 3x
   calculateScore(numberOfTries: number, difficulty: Difficulty, timeItTookInSeconds: number): GameScoreBreakdown {
-    let gameScoreBreakdown: GameScoreBreakdown = {
+    const gameScoreBreakdown: GameScoreBreakdown = {
       baseScore: this.baseScore,
-      numberOfTriesMultipler: (7 - numberOfTries),
+      numberOfTriesMultipler: 7 - numberOfTries,
       difficultyMultiplier: this.getDifficultyMultiplier(difficulty),
       baseSubtraction: this.baseSubtraction,
       timeItTookMultiplier: this.getTimeItTookSubtractionMultiplier(timeItTookInSeconds, difficulty),
       achievedScore: 0,
     };
-    gameScoreBreakdown.achievedScore = clamp((gameScoreBreakdown.baseScore * gameScoreBreakdown.numberOfTriesMultipler * gameScoreBreakdown.difficultyMultiplier)
-      - (gameScoreBreakdown.baseSubtraction * gameScoreBreakdown.timeItTookMultiplier), Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+    gameScoreBreakdown.achievedScore = clamp(gameScoreBreakdown.baseScore * gameScoreBreakdown.numberOfTriesMultipler * gameScoreBreakdown.difficultyMultiplier
+      - gameScoreBreakdown.baseSubtraction * gameScoreBreakdown.timeItTookMultiplier, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
     return gameScoreBreakdown;
   }
 

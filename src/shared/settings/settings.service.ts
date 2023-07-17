@@ -26,7 +26,6 @@ export class SettingsService {
   private readonly storage = window.localStorage;
   private readonly settingsCacheTage = 'settingsCache';
   private readonly profileCacheTage = 'profileCache';
-
   private secret: string;
 
   setSecret(secret: string): void {
@@ -49,7 +48,7 @@ export class SettingsService {
     const settings = this.storage.getItem(this.settingsCacheTage);
 
     if (!settings) {
-      const newSettings = {
+      const newSettings: Settings = {
         difficulty: Difficulty.MEDIUM,
         musicVolume: 1,
       };

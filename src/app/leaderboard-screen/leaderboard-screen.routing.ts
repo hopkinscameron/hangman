@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HowToPlayComponent } from './how-to-play.component';
+import { LeaderboardScreenComponent } from './leaderboard-screen.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HowToPlayComponent,
-    title: 'How To Play',
+    component: LeaderboardScreenComponent,
+    title: 'Leaderboard',
   },
 ];
 
@@ -16,4 +16,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 
-export class HowToPlayRoutingModule { }
+export class LeaderboardScreenRoutingModule { }

@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from 'src/shared/material/material.module';
+import { PageBodyModule } from 'src/shared/page-body/page-body.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './home/home.component';
@@ -24,6 +25,7 @@ import { GameActivateGuard } from './game-activate.guard';
     ReactiveFormsModule,
     RouterModule,
     MaterialModule,
+    PageBodyModule,
     AppRoutingModule,
   ],
   providers: [

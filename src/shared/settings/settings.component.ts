@@ -20,7 +20,7 @@ interface SettingsControls {
 })
 export class SettingsComponent implements OnInit {
   @Input() shouldNavigateOnClose = true;
-  @Output() onClose = new EventEmitter();
+  @Output() closeClicked = new EventEmitter();
 
   readonly difficultyLevel = Difficulty;
   settingsForm: FormGroup<SettingsControls>;
@@ -64,7 +64,7 @@ export class SettingsComponent implements OnInit {
       return this.router.navigate(['']);
     }
 
-    this.onClose.emit();
+    this.closeClicked.emit();
     return Promise.resolve(true);
   }
 }

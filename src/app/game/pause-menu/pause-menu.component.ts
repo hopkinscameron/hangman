@@ -7,15 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./pause-menu.component.scss'],
 })
 export class PauseMenuComponent {
-  @Output() close = new EventEmitter();
+  @Output() closeMenu = new EventEmitter();
 
   shouldShowSettings = false;
-  shouldShowLeaderboards = false;
+  shouldShowLeaderboard = false;
 
   constructor(private readonly router: Router) { }
 
-  closeMenu(): void {
-    this.close.emit();
+  closePauseMenu(): void {
+    this.closeMenu.emit();
   }
 
   quit(): Promise<boolean> {

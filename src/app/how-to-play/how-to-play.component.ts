@@ -26,7 +26,7 @@ export class HowToPlayComponent {
     `For every win, you get score added to your profile. The score multipler consists of the
     difficulty level, the number of tries it takes you to guess the word correctly, and the time
     it takes to guess the word correctly.`,
-  ]
+  ];
   disabledLetters = '';
 
   constructor(private readonly router: Router) { }

@@ -7,13 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: SettingsScreenComponent,
-    title: 'Settings'
+    title: 'Settings',
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 
-export class SettingsScreenRoutingModule { };
+export class SettingsScreenRoutingModule { }

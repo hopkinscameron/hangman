@@ -21,14 +21,18 @@ const routes: Routes = [
     loadChildren: () => import('./how-to-play/how-to-play.module').then(mod => mod.HowToPlayModule),
     canActivate: [GameActivateGuard],
   },
+  {
+    path: 'leaderboard',
+    loadChildren: () => import('./leaderboard-screen/leaderboard-screen.module').then(mod => mod.LeaderboardScreenModule),
+    canActivate: [GameActivateGuard],
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  // TODO: add leaderboards/how to play
   // { path: '**', redirectTo: '' },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 
-export class AppRoutingModule { };
+export class AppRoutingModule { }

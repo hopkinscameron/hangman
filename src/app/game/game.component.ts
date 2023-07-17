@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, On
 
 import dictionary from 'src/assets/dictionary.json';
 import { isLetterDisabled, isValidLetter } from 'src/shared/keyboard/keyboard.component';
+import { LeaderboardService } from 'src/shared/leaderboard/leaderboard.service';
 import { Difficulty, SettingsService } from 'src/shared/settings/settings.service';
 import { clamp } from 'src/shared/utility-functions';
 import { GameService } from './game.service';
@@ -41,7 +42,7 @@ export class GameComponent implements OnInit, OnDestroy {
   private difficulty: Difficulty;
 
   constructor(readonly gameService: GameService, private readonly changeDetector: ChangeDetectorRef,
-    private readonly settingsService: SettingsService) {
+    private readonly settingsService: SettingsService, private leaderboardService: LeaderboardService) {
     this.gameService.setGameInProgress(true);
   }
 
@@ -122,7 +123,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     let dictionaryLevel: string[];
     this.difficulty = this.settingsService.getSettings().difficulty;
-    switch(this.difficulty) {
+    switch (this.difficulty) {
       case Difficulty.EASY:
         dictionaryLevel = dictionary.easy;
         break;
@@ -138,7 +139,7 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log(word);
     // TODO: wonder if it's better to make this a 2D array instead of spaces
     this.wordToGuess = word.split('').map((letter) => {
-      return { letter: letter.toLowerCase(), masked: letter !== ' ', };
+      return { letter: letter.toLowerCase(), masked: letter !== ' ' };
     });
   }
 
@@ -175,6 +176,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameOver.winner = winner;
     this.gameOver.scoreBreakdown = scoreBreakdown;
     this.settingsService.updateProfile(scoreBreakdown.achievedScore);
+    this.leaderboardService.addToLeaderboard(scoreBreakdown.achievedScore, this.gameOver.previousScore);
     this.gameService.setWinner(winner);
     this.gameService.setGameInProgress(false);
   }

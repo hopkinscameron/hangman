@@ -1,4 +1,4 @@
-<hangman-pause-menu *ngIf="gameService.isPaused()" (close)="closeMenu()"></hangman-pause-menu>
+<hangman-pause-menu *ngIf="gameService.isPaused()" (closeMenu)="closeMenu()"></hangman-pause-menu>
 <hangman-game-over *ngIf="!gameService.isGameInProgress()" [gameOver]="gameOver" (playAgainClicked)="playAgain()"></hangman-game-over>
 
 <div class="game-container">
