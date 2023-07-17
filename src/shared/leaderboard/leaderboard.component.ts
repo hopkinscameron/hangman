@@ -24,6 +24,7 @@ export class LeaderboardComponent implements OnInit {
   achievedScoresDataSource = new MatTableDataSource<ScoreDateTableItem>();
   playerScoresDataSource = new MatTableDataSource<ScoreDateTableItem>();
 
+  // FIXME: remove test data
   private readonly fakeData: ScoreDate[] = [
     {
       score: 193,
