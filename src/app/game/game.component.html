@@ -1,7 +1,14 @@
 <hangman-pause-menu *ngIf="gameService.isPaused()" (close)="closeMenu()"></hangman-pause-menu>
-<hangman-game-over *ngIf="!gameService.isGameInProgress()" [winner]="gameService.isWinner()" (playAgainClicked)="playAgain()"></hangman-game-over>
+<hangman-game-over *ngIf="!gameService.isGameInProgress()" [gameOver]="gameOver" (playAgainClicked)="playAgain()"></hangman-game-over>
 
 <div class="game-container">
+  <div class="time-span" *ngIf="elapsedTime as elapsed">
+    <span>Time: </span>
+    <span >{{elapsed.hours}} h</span>
+    <span >{{elapsed.minutes}} m</span>
+    <span>{{elapsed.seconds}} s</span>
+  </div>
+
   <div class="image-letters">
     <img class="game-image" [src]="imageGuessStateUrl" />
 

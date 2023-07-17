@@ -1,7 +1,18 @@
-<div class="game-over">
-  <h1 class="title">{{winner ? 'Winner!' : 'Game Over'}}</h1>
+<div class="game-over" *ngIf="gameOver">
+  <h1 class="title">{{gameOver.winner ? 'Winner!' : 'Game Over'}}</h1>
 
-  <div class="actions">
+  <div class="score-breakdown">
+    <h2>Previous Player Score: {{gameOver.previousScore}}</h2>
+    <h2>Base Score: {{gameOver.scoreBreakdown.baseScore}}</h2>
+    <h2>Number of tries Multiplier: {{gameOver.scoreBreakdown.numberOfTriesMultipler}}</h2>
+    <h2>Difficulty Multiplier: {{gameOver.scoreBreakdown.difficultyMultiplier}}</h2>
+    <h2>Base Subtraction for Playing: {{gameOver.scoreBreakdown.baseSubtraction}}</h2>
+    <h2>Time it took Multiplier: {{gameOver.scoreBreakdown.timeItTookMultiplier}}</h2>
+    <h2>Total Score Achieved: {{gameOver.scoreBreakdown.achievedScore}}</h2>
+    <h2>Current Player Score: {{playersNewScore}}</h2>
+  </div>
+
+  <div class="actions" *ngIf="showButtons">
     <button type="button" mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
     <a mat-raised-button color="primary" [routerLink]="['/']">Quit</a>
   </div>

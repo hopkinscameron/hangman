@@ -6,7 +6,7 @@ import { isValidLetter, isLetterDisabled } from 'src/shared/keyboard/keyboard.co
 @Component({
   selector: 'hangman-how-to-play',
   templateUrl: './how-to-play.component.html',
-  styleUrls: ['./how-to-play.component.scss']
+  styleUrls: ['./how-to-play.component.scss'],
 })
 export class HowToPlayComponent {
   readonly rules = [
@@ -22,7 +22,10 @@ export class HowToPlayComponent {
     lines.`,
     `If a letter is guessed incorrectly, you will get a strike that brings you closer to losing.
     The host will draw a simple stick figure of a man being hung, adding a new part to the drawing
-    with every wrong answer. You will get 7 guesses before you ultimately lose the game.`
+    with every wrong answer. You will get 7 guesses before you ultimately lose the game.`,
+    `For every win, you get score added to your profile. The score multipler consists of the
+    difficulty level, the number of tries it takes you to guess the word correctly, and the time
+    it takes to guess the word correctly.`,
   ]
   disabledLetters = '';
 
