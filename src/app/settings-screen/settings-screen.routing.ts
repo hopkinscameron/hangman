@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SettingsComponent } from './settings.component';
+import { SettingsScreenComponent } from './settings-screen.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingsComponent,
+    component: SettingsScreenComponent,
     title: 'Settings'
   },
 ]
@@ -16,4 +16,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 
-export class SettingsRoutingModule { };
+export class SettingsScreenRoutingModule { };

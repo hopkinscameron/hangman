@@ -1,11 +1,22 @@
-<hangman-close light (onClose)="closeMenu()"></hangman-close>
-
 <div class="pause">
-  <h1 class="title">Game Paused</h1>
+  <div *ngIf="!shouldShowSettings && !shouldShowLeaderboards; else showSettings">
+    <hangman-close light (onClose)="closeMenu()"></hangman-close>
 
-  <div class="actions">
-    <button mat-raised-button color="primary">Settings</button>
-    <button mat-raised-button color="primary">Leaderboards</button>
-    <a mat-raised-button color="primary" [routerLink]="['/']">Quit</a>
+    <h1 class="title">Game Paused</h1>
+
+    <div class="actions">
+      <button type="button" mat-raised-button color="primary" (click)="shouldShowSettings = true; shouldShowLeaderboards = false;">Settings</button>
+      <button type="button" mat-raised-button color="primary" (click)="shouldShowLeaderboards = true; shouldShowSettings = false;">Leaderboards</button>
+      <a mat-raised-button color="primary" [routerLink]="['/']">Quit</a>
+    </div>
   </div>
+
+  <ng-template #showSettings>
+    <hangman-settings *ngIf="!shouldShowLeaderboards; else showLeaderboards" [shouldNavigateOnClose]="false" (onClose)="shouldShowSettings = false"></hangman-settings>
+  </ng-template>
+
+  <ng-template #showLeaderboards>
+    <hangman-close light (onClose)="shouldShowLeaderboards = false"></hangman-close>
+    <p>Leaderboards</p>
+  </ng-template>
 </div>

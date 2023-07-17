@@ -26,7 +26,7 @@ export class HowToPlayComponent {
   ]
   disabledLetters = '';
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   closeMenu(): Promise<boolean> {
     return this.router.navigate(['']);

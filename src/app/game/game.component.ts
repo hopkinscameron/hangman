@@ -2,7 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 
 import dictionary from 'src/assets/dictionary.json';
 import { isLetterDisabled, isValidLetter } from 'src/shared/keyboard/keyboard.component';
-import { Difficulty, SettingsService } from '../settings/settings.service';
+import { Difficulty, SettingsService } from '../../shared/settings/settings.service';
+import { GameService } from './game.service';
 
 interface KeyboardLetter {
   letter: string;
@@ -18,19 +19,19 @@ export class GameComponent implements OnInit {
   readonly initialGuessStateUrl = '/assets/images/game/strike-0.png';
   wordToGuess: KeyboardLetter[];
   imageGuessStateUrl = this.initialGuessStateUrl;
-  gameOver = false;
-  winner = false;
-  paused = false;
+
   disabledLetters: string;
 
   private guessingStateIndex: number;
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(readonly gameService: GameService, private readonly settingsService: SettingsService) {
+    this.gameService.setGameInProgress(true);
+  }
 
   @HostListener('document:keydown.esc', ['$event'])
   onEsc() {
-    if (!this.gameOver) {
-      this.paused = !this.paused;
+    if (this.gameService.isGameInProgress()) {
+      this.gameService.setPaused(!this.gameService.isPaused());
     }
   }
 
@@ -39,13 +40,13 @@ export class GameComponent implements OnInit {
   }
 
   closeMenu(): void {
-    this.paused = false;
+    this.gameService.setPaused(false);
   }
 
   playAgain(): void {
     this.startGame();
-    this.winner = false;
-    this.gameOver = false;
+    this.gameService.setWinner(false);
+    this.gameService.setGameInProgress(true);
   }
 
   letterClicked(letter: string): void {
@@ -102,10 +103,10 @@ export class GameComponent implements OnInit {
 
   private checkGameOver(): void {
     if (this.wordToGuess.every(letter => !letter.masked)) {
-      this.winner = true;
-      this.gameOver = true;
+      this.gameService.setWinner(true);
+      this.gameService.setGameInProgress(false);
     } else if (this.guessingStateIndex === 7) {
-      this.gameOver = true;
+      this.gameService.setGameInProgress(false);
     }
   }
 }
