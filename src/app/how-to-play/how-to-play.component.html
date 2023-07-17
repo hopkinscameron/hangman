@@ -1,0 +1,27 @@
+<hangman-close (onClose)="closeMenu()"></hangman-close>
+
+<div class="rules-container">
+  <div class="rules">
+    <div class="rule" *ngFor="let rule of rules; let i = index">
+      <h2 class="rule-number">Rule #{{i + 1}}</h2>
+      <div [innerHTML]="rule"></div>
+    </div>
+  </div>
+
+  <div class="images-container">
+    <div class="image-container">
+      <img class="game-image" src="/assets/images/game/strike-0.png" />
+      <h2>Start of the game</h2>
+    </div>
+
+    <div class="image-container">
+      <img class="game-image" src="/assets/images/game/strike-7.png" />
+      <h2>Game Over</h2>
+    </div>
+  </div>
+</div>
+
+<div class="try-me">
+  <button mat-raised-button color="primary" (click)="disabledLetters = ''">Reset Keyboard!</button>
+</div>
+<hangman-keyboard [disabledLetters]="disabledLetters" (letterClicked)="letterClicked($event)"></hangman-keyboard>

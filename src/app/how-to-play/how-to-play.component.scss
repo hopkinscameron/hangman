@@ -1,0 +1,41 @@
+.rules-container {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  align-items: center;
+}
+
+.rules {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .rule-number {
+    margin-bottom: 0;
+  }
+}
+
+.images-container {
+  display: flex;
+  justify-content: center;
+
+  > .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > .game-image {
+      width: 300px;
+      justify-self: flex-end;
+    }
+  }
+}
+
+.try-me {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 275px;
+  left: 0;
+  right: 0;
+}

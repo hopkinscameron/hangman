@@ -1,8 +1,6 @@
-<div class="settings">
-  <button class="close" mat-icon-button extra-large (click)="closeMenu()">
-    <mat-icon>close</mat-icon>
-  </button>
+<hangman-close (onClose)="closeMenu()"></hangman-close>
 
+<div class="settings">
   <p class="title">Settings</p>
 
   <h1 class="header">Difficulty Level</h1>

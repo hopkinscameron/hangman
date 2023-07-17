@@ -1,8 +1,6 @@
-<div class="pause">
-  <button class="close" mat-icon-button extra-large (click)="closeMenu()">
-    <mat-icon>close</mat-icon>
-  </button>
+<hangman-close light (onClose)="closeMenu()"></hangman-close>
 
+<div class="pause">
   <h1 class="title">Game Paused</h1>
 
   <div class="actions">
