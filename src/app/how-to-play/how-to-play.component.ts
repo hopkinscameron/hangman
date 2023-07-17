@@ -6,7 +6,7 @@ import { isValidLetter, isLetterDisabled } from 'src/shared/keyboard/keyboard.co
 @Component({
   selector: 'hangman-how-to-play',
   templateUrl: './how-to-play.component.html',
-  styleUrls: ['./how-to-play.component.scss']
+  styleUrls: ['./how-to-play.component.scss'],
 })
 export class HowToPlayComponent {
   readonly rules = [

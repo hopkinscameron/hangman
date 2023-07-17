@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 
 import dictionary from 'src/assets/dictionary.json';
 import { isLetterDisabled, isValidLetter } from 'src/shared/keyboard/keyboard.component';
@@ -10,33 +10,74 @@ interface KeyboardLetter {
   masked: boolean;
 }
 
+interface TimeSpan {
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
 @Component({
   selector: 'hangman-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
   readonly initialGuessStateUrl = '/assets/images/game/strike-0.png';
   wordToGuess: KeyboardLetter[];
   imageGuessStateUrl = this.initialGuessStateUrl;
-
   disabledLetters: string;
+  elapsedTime: TimeSpan = {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  };
 
   private guessingStateIndex: number;
+  private timer: NodeJS.Timer;
 
-  constructor(readonly gameService: GameService, private readonly settingsService: SettingsService) {
+  constructor(readonly gameService: GameService, private changeDetector: ChangeDetectorRef,
+    private readonly settingsService: SettingsService) {
     this.gameService.setGameInProgress(true);
   }
 
   @HostListener('document:keydown.esc', ['$event'])
   onEsc() {
     if (this.gameService.isGameInProgress()) {
-      this.gameService.setPaused(!this.gameService.isPaused());
+      const paused = this.gameService.isPaused();
+      if (!paused) {
+        this.gameService.setPaused(true);
+        clearInterval(this.timer);
+      } else {
+        this.gameService.setPaused(false);
+        this.count();
+        this.timer = setInterval(() => this.count(), 1000);
+      }
     }
   }
 
   ngOnInit(): void {
     this.startGame();
+    this.count();
+    this.timer = setInterval(() => this.count(), 1000);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
+  }
+
+  setElapsedTime(): void {
+    if (this.elapsedTime.minutes >= 60) {
+      this.elapsedTime.hours += 1;
+      this.elapsedTime.minutes = 0;
+    }
+
+    if (this.elapsedTime.seconds >= 60) {
+      this.elapsedTime.minutes += 1;
+      this.elapsedTime.seconds = 0;
+
+      console.log(this.elapsedTime);
+    }
   }
 
   closeMenu(): void {
@@ -55,6 +96,12 @@ export class GameComponent implements OnInit {
       this.disabledLetters = this.disabledLetters.concat(lowerLetter);
       this.checkLetterInWord(lowerLetter);
     }
+  }
+
+  private count(): void {
+    this.changeDetector.detectChanges();
+    this.elapsedTime.seconds += 1;
+    this.setElapsedTime();
   }
 
   private startGame(): void {

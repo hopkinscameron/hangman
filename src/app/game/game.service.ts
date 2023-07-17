@@ -4,9 +4,18 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GameService {
+  private startedAtHome = true;
   private gameInProgress = false;
   private winner = false;
   private paused = false;
+
+  setStartedAtHomeScreen(startedAtHome: boolean): void {
+    this.startedAtHome = startedAtHome;
+  }
+
+  startedAtHomeScreen(): boolean {
+    return this.startedAtHome;
+  }
 
   setGameInProgress(gameInProgress: boolean): void {
     this.gameInProgress = gameInProgress;

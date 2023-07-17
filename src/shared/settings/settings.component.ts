@@ -15,7 +15,7 @@ interface SettingsControls {
 @Component({
   selector: 'hangman-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
   @Input() shouldNavigateOnClose = true;

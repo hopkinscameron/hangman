@@ -14,7 +14,7 @@ export function isLetterDisabled(disabledLetters: string, letter: string): boole
 @Component({
   selector: 'hangman-keyboard',
   templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.scss']
+  styleUrls: ['./keyboard.component.scss'],
 })
 export class KeyboardComponent {
   @Input() disabledLetters = '';

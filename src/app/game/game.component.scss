@@ -6,6 +6,12 @@
   height: 100%;
 }
 
+.time-span {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
 .image-letters {
   display: grid;
   grid-template-columns: repeat(2, 50%);

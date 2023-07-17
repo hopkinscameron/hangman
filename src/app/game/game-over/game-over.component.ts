@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'hangman-game-over',
   templateUrl: './game-over.component.html',
-  styleUrls: ['./game-over.component.scss']
+  styleUrls: ['./game-over.component.scss'],
 })
 export class GameOverComponent {
   @Input() winner = false;

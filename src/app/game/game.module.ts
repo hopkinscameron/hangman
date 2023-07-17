@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { CloseModule } from 'src/shared/close/close.module';
 import { KeyboardModule } from 'src/shared/keyboard/keyboard.module';
@@ -20,7 +20,7 @@ import { PauseMenuComponent } from './pause-menu/pause-menu.component';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,

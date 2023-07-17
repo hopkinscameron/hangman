@@ -9,6 +9,7 @@ import { MaterialModule } from 'src/shared/material/material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { HomeComponent } from './home/home.component';
+import { GameActivateGuard } from './game-activate.guard';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,9 @@ import { HomeComponent } from './home/home.component';
     RouterModule,
     MaterialModule,
     AppRoutingModule,
+  ],
+  providers: [
+    GameActivateGuard,
   ],
   bootstrap: [AppComponent],
 })
