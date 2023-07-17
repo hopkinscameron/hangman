@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CloseModule } from 'src/shared/close/close.module';
+import { KeyboardModule } from 'src/shared/keyboard/keyboard.module';
 import { MaterialModule } from 'src/shared/material/material.module';
-import { SettingsComponent } from './settings.component';
-import { SettingsRoutingModule } from './settings.routing';
+import { HowToPlayComponent } from './how-to-play.component';
+import { HowToPlayRoutingModule } from './how-to-play.routing';
 
 @NgModule({
   declarations: [
-    SettingsComponent,
+    HowToPlayComponent,
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     MaterialModule,
+    KeyboardModule,
     CloseModule,
-    SettingsRoutingModule,
+    HowToPlayRoutingModule,
   ],
 })
-export class SettingsModule { }
+export class HowToPlayModule { }

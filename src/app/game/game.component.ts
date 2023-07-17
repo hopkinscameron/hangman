@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import dictionary from 'src/assets/dictionary.json';
+import { isLetterDisabled, isValidLetter } from 'src/shared/keyboard/keyboard.component';
 import { Difficulty, SettingsService } from '../settings/settings.service';
 
 interface KeyboardLetter {
@@ -14,28 +15,17 @@ interface KeyboardLetter {
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  readonly keyboard = [
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
-  ];
   readonly initialGuessStateUrl = '/assets/images/game/strike-0.png';
   wordToGuess: KeyboardLetter[];
   imageGuessStateUrl = this.initialGuessStateUrl;
   gameOver = false;
   winner = false;
   paused = false;
+  disabledLetters: string;
 
-  private readonly allowedLetters = 'qwertyuiopasdfghjklzxcvbnm';
-  private disabledLetters: string;
   private guessingStateIndex: number;
 
   constructor(private settingsService: SettingsService) { }
-
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.letterClicked(event.key);
-  }
 
   @HostListener('document:keydown.esc', ['$event'])
   onEsc() {
@@ -60,15 +50,10 @@ export class GameComponent implements OnInit {
 
   letterClicked(letter: string): void {
     const lowerLetter = letter.toLowerCase();
-    if (this.isValidLetter(lowerLetter) && !this.isLetterDisabled(lowerLetter)) {
+    if (isValidLetter(lowerLetter) && !isLetterDisabled(this.disabledLetters, lowerLetter)) {
       this.disabledLetters = this.disabledLetters.concat(lowerLetter);
       this.checkLetterInWord(lowerLetter);
     }
-  }
-
-  isLetterDisabled(letter: string): boolean {
-    const lowerLetter = letter.toLowerCase();
-    return this.disabledLetters.includes(lowerLetter);
   }
 
   private startGame(): void {
@@ -96,11 +81,6 @@ export class GameComponent implements OnInit {
       return { letter: letter.toLowerCase(), masked: letter !== ' ', };
     });
   }
-
-  private isValidLetter(letter: string): boolean {
-    return this.allowedLetters.includes(letter);
-  }
-
   private checkLetterInWord(letter: string): void {
     let letterFound = false;
     this.wordToGuess = this.wordToGuess.map((letterInWordToGuess) => {
