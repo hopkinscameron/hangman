@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Leaderboard, LeaderboardService, ScoreDate } from './leaderboard.service';
@@ -12,12 +12,12 @@ interface ScoreDateTableItem extends ScoreDate {
 @Component({
   selector: 'hangman-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.scss']
+  styleUrls: ['./leaderboard.component.scss'],
 })
-export class LeaderboardComponent {
+export class LeaderboardComponent implements OnInit {
   @Input() shouldNavigateOnClose = true;
   @Input() isFromPausedScreen = true;
-  @Output() onClose = new EventEmitter();
+  @Output() closeClicked = new EventEmitter();
 
   leaderboard: Leaderboard;
   displayedColumns: string[] = ['date', 'score'];
@@ -80,7 +80,7 @@ export class LeaderboardComponent {
       return this.router.navigate(['']);
     }
 
-    this.onClose.emit();
+    this.closeClicked.emit();
     return Promise.resolve(true);
   }
 

@@ -7,13 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: LeaderboardScreenComponent,
-    title: 'Leaderboard'
+    title: 'Leaderboard',
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 
-export class LeaderboardScreenRoutingModule { };
+export class LeaderboardScreenRoutingModule { }

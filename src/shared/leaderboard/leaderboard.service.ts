@@ -12,7 +12,7 @@ export interface Leaderboard {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LeaderboardService {
   private readonly storage = window.localStorage;
@@ -39,8 +39,6 @@ export class LeaderboardService {
     if (leaderboard.playerScores.length > 10) {
       leaderboard.playerScores = leaderboard.playerScores.splice(0, 1);
     }
-
-    console.log(leaderboard);
   }
 
   getLeaderboard(): Leaderboard {
@@ -70,7 +68,7 @@ export class LeaderboardService {
     let high = array[array.length - 1].score;
 
     while (low < high) {
-      const mid = (low + high) >>> 1;
+      const mid = low + high >>> 1;
       if (array[mid].score < value) {
         low = mid + 1;
       } else {

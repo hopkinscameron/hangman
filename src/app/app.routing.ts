@@ -28,11 +28,11 @@ const routes: Routes = [
   },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   // { path: '**', redirectTo: '' },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 
-export class AppRoutingModule { };
+export class AppRoutingModule { }

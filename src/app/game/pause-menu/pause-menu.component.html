@@ -1,6 +1,6 @@
 <div class="pause">
   <div *ngIf="!shouldShowSettings && !shouldShowLeaderboard; else showSettings">
-    <hangman-close light (onClose)="closeMenu()"></hangman-close>
+    <hangman-close light (closeClicked)="closePauseMenu()"></hangman-close>
 
     <h1 class="title">Game Paused</h1>
 
@@ -12,10 +12,10 @@
   </div>
 
   <ng-template #showSettings>
-    <hangman-settings *ngIf="!shouldShowLeaderboard; else showLeaderboards" [shouldNavigateOnClose]="false" (onClose)="shouldShowSettings = false"></hangman-settings>
+    <hangman-settings *ngIf="!shouldShowLeaderboard; else showLeaderboards" [shouldNavigateOnClose]="false" (closeClicked)="shouldShowSettings = false"></hangman-settings>
   </ng-template>
 
   <ng-template #showLeaderboards>
-    <hangman-leaderboard [isFromPausedScreen]="true" [shouldNavigateOnClose]="false" (onClose)="shouldShowLeaderboard = false"></hangman-leaderboard>
+    <hangman-leaderboard [isFromPausedScreen]="true" [shouldNavigateOnClose]="false" (closeClicked)="shouldShowLeaderboard = false"></hangman-leaderboard>
   </ng-template>
 </div>

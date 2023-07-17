@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
+/* eslint-disable @typescript-eslint/naming-convention */
 const ALLOWED_LETTERS = 'qwertyuiopasdfghjklzxcvbnm';
 
 export function isValidLetter(letter: string): boolean {

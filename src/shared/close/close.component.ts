@@ -6,9 +6,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./close.component.scss'],
 })
 export class CloseComponent {
-  @Output() onClose = new EventEmitter();
+  @Output() closeClicked = new EventEmitter();
 
   closeMenu(): void {
-    this.onClose.emit();
+    this.closeClicked.emit();
   }
 }

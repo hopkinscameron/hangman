@@ -1,4 +1,4 @@
-<hangman-close (onClose)="closeMenu()"></hangman-close>
+<hangman-close (closeClicked)="closeMenu()"></hangman-close>
 
 <div class="leaderboard" *ngIf="leaderboard">
   <div class="leaderboard-score-container" [ngClass]="{ 'paused': isFromPausedScreen }">

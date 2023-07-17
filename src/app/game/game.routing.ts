@@ -7,13 +7,13 @@ const routes: Routes = [
   {
     path: '',
     component: GameComponent,
-    title: 'Hangman'
+    title: 'Hangman',
   },
-]
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 
-export class GameRoutingModule { };
+export class GameRoutingModule { }

@@ -123,7 +123,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     let dictionaryLevel: string[];
     this.difficulty = this.settingsService.getSettings().difficulty;
-    switch(this.difficulty) {
+    switch (this.difficulty) {
       case Difficulty.EASY:
         dictionaryLevel = dictionary.easy;
         break;
@@ -139,7 +139,7 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log(word);
     // TODO: wonder if it's better to make this a 2D array instead of spaces
     this.wordToGuess = word.split('').map((letter) => {
-      return { letter: letter.toLowerCase(), masked: letter !== ' ', };
+      return { letter: letter.toLowerCase(), masked: letter !== ' ' };
     });
   }
 
