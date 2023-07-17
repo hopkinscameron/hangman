@@ -22,6 +22,6 @@
 </div>
 
 <div class="try-me">
-  <button mat-raised-button color="primary" (click)="disabledLetters = ''">Reset Keyboard!</button>
+  <button type="button" mat-raised-button color="primary" (click)="disabledLetters = ''">Reset Keyboard!</button>
 </div>
 <hangman-keyboard [disabledLetters]="disabledLetters" (letterClicked)="letterClicked($event)"></hangman-keyboard>

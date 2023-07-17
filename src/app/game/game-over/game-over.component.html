@@ -2,7 +2,7 @@
   <h1 class="title">{{winner ? 'Winner!' : 'Game Over'}}</h1>
 
   <div class="actions">
-    <button mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
+    <button type="button" mat-raised-button color="primary" (click)="playAgain()">Play Again</button>
     <a mat-raised-button color="primary" [routerLink]="['/']">Quit</a>
   </div>
 </div>

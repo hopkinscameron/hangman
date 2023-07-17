@@ -1,5 +1,5 @@
-<hangman-pause-menu *ngIf="paused" (close)="closeMenu()"></hangman-pause-menu>
-<hangman-game-over *ngIf="gameOver" [winner]="winner" (playAgainClicked)="playAgain()"></hangman-game-over>
+<hangman-pause-menu *ngIf="gameService.isPaused()" (close)="closeMenu()"></hangman-pause-menu>
+<hangman-game-over *ngIf="!gameService.isGameInProgress()" [winner]="gameService.isWinner()" (playAgainClicked)="playAgain()"></hangman-game-over>
 
 <div class="game-container">
   <div class="image-letters">

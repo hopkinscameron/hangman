@@ -2,3 +2,7 @@ mat-button-toggle-group.mat-button-toggle-group .mat-button-toggle-checked.mat-b
   background-color: var(--primary-color);
   color: var(--primary-color-contrast);
 }
+
+mat-dialog-actions.mat-mdc-dialog-actions {
+  justify-content: flex-end;
+}

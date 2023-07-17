@@ -1,6 +1,6 @@
 <div class="keyboard-container">
   <div class="keyboard-row" *ngFor="let row of keyboard">
-    <button class="letter" mat-raised-button color="primary" *ngFor="let letter of row"
+    <button type="button" class="letter" mat-raised-button color="primary" *ngFor="let letter of row"
       (click)="clickLetter(letter)" [disabled]="isLetterDisabled(letter)">{{letter}}</button>
   </div>
 </div>

@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
 export class PauseMenuComponent {
   @Output() close = new EventEmitter();
 
-  constructor(private router: Router) { }
+  shouldShowSettings = false;
+  shouldShowLeaderboards = false;
+
+  constructor(private readonly router: Router) { }
 
   closeMenu(): void {
     this.close.emit();

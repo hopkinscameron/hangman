@@ -10,7 +10,7 @@ export class GameOverComponent {
   @Input() winner = false;
   @Output() playAgainClicked = new EventEmitter();
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   playAgain(): void {
     this.playAgainClicked.emit();
