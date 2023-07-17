@@ -10,7 +10,7 @@ export class PauseMenuComponent {
   @Output() close = new EventEmitter();
 
   shouldShowSettings = false;
-  shouldShowLeaderboards = false;
+  shouldShowLeaderboard = false;
 
   constructor(private readonly router: Router) { }
 
