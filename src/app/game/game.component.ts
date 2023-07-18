@@ -43,22 +43,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
   constructor(readonly gameService: GameService, private readonly changeDetector: ChangeDetectorRef,
     private readonly settingsService: SettingsService, private leaderboardService: LeaderboardService) {
-    this.gameService.setGameInProgress(true);
+    this.gameService.initializeGame(true);
   }
 
   @HostListener('document:keydown.esc', ['$event'])
   onEsc() {
-    if (this.gameService.isGameInProgress()) {
-      const paused = this.gameService.isPaused();
-      if (!paused) {
-        this.gameService.setPaused(true);
-        clearInterval(this.timer);
-      } else {
-        this.gameService.setPaused(false);
-        this.count();
-        this.timer = setInterval(() => this.count(), 1000);
-      }
-    }
+    this.pauseGame();
   }
 
   ngOnInit(): void {
@@ -84,7 +74,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   closeMenu(): void {
-    this.gameService.setPaused(false);
+    this.pauseGame();
   }
 
   playAgain(): void {
@@ -99,6 +89,11 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     const lowerLetter = letter.toLowerCase();
+    if (lowerLetter === 'esc') {
+      this.pauseGame();
+      return;
+    }
+
     if (isValidLetter(lowerLetter) && !isLetterDisabled(this.disabledLetters, lowerLetter)) {
       this.disabledLetters = this.disabledLetters.concat(lowerLetter);
       this.checkLetterInWord(lowerLetter);
@@ -176,12 +171,26 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameOver.winner = winner;
     this.gameOver.scoreBreakdown = scoreBreakdown;
     this.settingsService.updateProfile(scoreBreakdown.achievedScore);
-    this.leaderboardService.addToLeaderboard(scoreBreakdown.achievedScore, this.gameOver.previousScore);
+    this.leaderboardService.addToLeaderboard(scoreBreakdown.achievedScore, this.settingsService.getProfile().score);
     this.gameService.setWinner(winner);
     this.gameService.setGameInProgress(false);
   }
 
   private getTimeInSeconds(elapsedTime: TimeSpan): number {
     return elapsedTime.hours * 3600 + elapsedTime.minutes * 60 + elapsedTime.seconds;
+  }
+
+  private pauseGame(): void {
+    if (this.gameService.isGameInProgress()) {
+      const paused = this.gameService.isPaused();
+      if (!paused) {
+        this.gameService.setPaused(true);
+        clearInterval(this.timer);
+      } else {
+        this.gameService.setPaused(false);
+        this.count();
+        this.timer = setInterval(() => this.count(), 1000);
+      }
+    }
   }
 }

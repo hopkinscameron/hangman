@@ -16,13 +16,18 @@ export interface GameScoreBreakdown {
   providedIn: 'root',
 })
 export class GameService {
-  // FIXME: startedAtHome should be false
-  private startedAtHome = true;
+  private readonly baseScore = 100;
+  private readonly baseSubtraction = 25;
+  private startedAtHome = false;
   private gameInProgress = false;
   private winner = false;
   private paused = false;
-  private baseScore = 100;
-  private baseSubtraction = 25;
+
+  initializeGame(gameStarted?: boolean): void {
+    this.gameInProgress = gameStarted || false;
+    this.winner = false;
+    this.paused = false;
+  }
 
   setStartedAtHomeScreen(startedAtHome: boolean): void {
     this.startedAtHome = startedAtHome;

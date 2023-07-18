@@ -19,6 +19,7 @@ export function isLetterDisabled(disabledLetters: string, letter: string): boole
 })
 export class KeyboardComponent {
   @Input() disabledLetters = '';
+  @Input() showHelp = false;
   @Output() letterClicked = new EventEmitter<string>();
 
   readonly keyboard = [
