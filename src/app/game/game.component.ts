@@ -131,7 +131,7 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     const word = dictionaryLevel[Math.floor(Math.random() * dictionaryLevel.length)];
-    console.log(word);
+
     // TODO: wonder if it's better to make this a 2D array instead of spaces
     this.wordToGuess = word.split('').map((letter) => {
       return { letter: letter.toLowerCase(), masked: letter !== ' ' };

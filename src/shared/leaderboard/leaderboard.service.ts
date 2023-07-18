@@ -86,18 +86,18 @@ export class LeaderboardService {
       return array[0].score > value ? 0 : 1;
     }
 
-    startPoint = startPoint || 0;
-    endPoint = endPoint || array.length;
-    var pivot = startPoint + (endPoint - startPoint) / 2;
+    const newStartPoint = startPoint || 0;
+    const newEndPoint = endPoint || array.length;
+    const pivot = newStartPoint + (newEndPoint - newStartPoint) / 2;
 
-    if (endPoint - startPoint <= 1 || array[pivot].score === value) {
+    if (newEndPoint - newStartPoint <= 1 || array[pivot].score === value) {
       return pivot;
     }
 
     if (array[pivot].score < value) {
-      return this.getSortedIndex(array, value, pivot, endPoint);
+      return this.getSortedIndex(array, value, pivot, newEndPoint);
     }
 
-    return this.getSortedIndex(array, value, startPoint, pivot);
+    return this.getSortedIndex(array, value, newStartPoint, pivot);
   }
 }
