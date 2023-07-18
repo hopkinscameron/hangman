@@ -1,6 +1,14 @@
 <div class="keyboard-container">
-  <div class="keyboard-row" *ngFor="let row of keyboard">
-    <button type="button" class="letter" mat-raised-button color="primary" *ngFor="let letter of row"
-      (click)="clickLetter(letter)" [disabled]="isLetterDisabled(letter)">{{letter}}</button>
+  <div class="keyboard-row-container">
+    <div class="esc-button" [ngClass]="{ 'show-help': showHelp }">
+      <p *ngIf="showHelp">Pause the Game with 'ESC'</p>
+      <button type="button" class="letter" mat-raised-button color="primary"
+        (click)="clickLetter('ESC')">ESC</button>
+    </div>
+
+    <div class="keyboard-row" *ngFor="let row of keyboard">
+      <button type="button" class="letter" mat-raised-button color="primary" *ngFor="let letter of row"
+        (click)="clickLetter(letter)" [disabled]="isLetterDisabled(letter)">{{letter}}</button>
+    </div>
   </div>
 </div>

@@ -26,19 +26,33 @@ export class LeaderboardService {
   addToLeaderboard(achievedScore: number, playerTotalScore: number): void {
     const now = new Date();
     const leaderboard = this.getLeaderboard();
-    const achievedScoreIndexToInsertAt = this.getSortedIndex(leaderboard.achievedScores, achievedScore);
-    const playerScoreIndexToInsertAt = this.getSortedIndex(leaderboard.playerScores, playerTotalScore);
-    leaderboard.achievedScores = leaderboard.achievedScores.splice(achievedScoreIndexToInsertAt, 0, { score: achievedScore, date: now });
-    leaderboard.playerScores = leaderboard.playerScores.splice(playerScoreIndexToInsertAt, 0, { score: playerTotalScore, date: now });
+    const achievedScoreIndexToInsertAt = this.getSortedIndex(leaderboard.achievedScores, achievedScore) + 1;
+    const playerScoreIndexToInsertAt = this.getSortedIndex(leaderboard.playerScores, playerTotalScore) + 1;
+    const achievedScoreToAdd = { score: achievedScore, date: now };
+    const playerScoreToAdd = { score: playerTotalScore, date: now };
+
+    if (!leaderboard.achievedScores.length && achievedScore > 0) {
+      leaderboard.achievedScores.push(achievedScoreToAdd);
+    } else if (achievedScore > 0) {
+      leaderboard.achievedScores.splice(achievedScoreIndexToInsertAt, 0, achievedScoreToAdd);
+    }
+
+    if (!leaderboard.playerScores.length && playerTotalScore > 0) {
+      leaderboard.playerScores.push(playerScoreToAdd);
+    } else if (playerTotalScore > 0) {
+      leaderboard.playerScores.splice(playerScoreIndexToInsertAt, 0, playerScoreToAdd);
+    }
 
     // we keep a max of 10, lets drop off the lowest
     if (leaderboard.achievedScores.length > 10) {
-      leaderboard.achievedScores = leaderboard.achievedScores.splice(0, 1);
+      leaderboard.achievedScores.splice(0, 1);
     }
 
     if (leaderboard.playerScores.length > 10) {
-      leaderboard.playerScores = leaderboard.playerScores.splice(0, 1);
+      leaderboard.playerScores.splice(0, 1);
     }
+
+    this.saveLeaderboard(leaderboard);
   }
 
   getLeaderboard(): Leaderboard {
@@ -63,19 +77,27 @@ export class LeaderboardService {
     this.storage.setItem(this.leaderboardCacheTage, encrypted);
   }
 
-  private getSortedIndex(array: ScoreDate[], value: number): number {
-    let low = 0;
-    let high = array[array.length - 1].score;
-
-    while (low < high) {
-      const mid = low + high >>> 1;
-      if (array[mid].score < value) {
-        low = mid + 1;
-      } else {
-        high = mid;
-      }
+  private getSortedIndex(array: ScoreDate[], value: number, startPoint?: number, endPoint?: number): number {
+    if (!array.length) {
+      return 0;
     }
 
-    return low;
+    if (array.length === 1) {
+      return array[0].score > value ? 0 : 1;
+    }
+
+    startPoint = startPoint || 0;
+    endPoint = endPoint || array.length;
+    var pivot = startPoint + (endPoint - startPoint) / 2;
+
+    if (endPoint - startPoint <= 1 || array[pivot].score === value) {
+      return pivot;
+    }
+
+    if (array[pivot].score < value) {
+      return this.getSortedIndex(array, value, pivot, endPoint);
+    }
+
+    return this.getSortedIndex(array, value, startPoint, pivot);
   }
 }
